@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="mainText" format="string" />
+    <attr name="progressDrawFlag" format="boolean" />
+
+    <declare-styleable name="CircleProgressView">
+        <attr name="mainText" />
+        <attr name="progressDrawFlag" />
+    </declare-styleable>
+</resources>

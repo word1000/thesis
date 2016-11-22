@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:gravity="center_horizontal"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_main"
+    tools:context="com.example.xiazhituo.ecase.MainActivity">
+
+
+    <!--com.dd.CircularProgressButton
+        android:id="@+id/unlockBtn"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/cpb_white"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
+        app:cpb_cornerRadius="100dp"
+        app:cpb_iconComplete="@android:drawable/ic_lock_idle_lock"
+        app:cpb_iconError="@mipmap/ic_action_cancel"
+        app:cpb_textIdle="@string/Unlock" /-->
+
+    <com.example.xiazhituo.ecase.CircleProgressView
+        android:id="@+id/unlockBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:mainText="UNLOCK"
+        app:progressDrawFlag="false"
+         />
+
+    <com.example.xiazhituo.ecase.CircleProgressView
+        android:id="@+id/weightCircleProgress"
+        android:layout_centerHorizontal="true"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="250dp"
+        app:mainText=""
+        app:progressDrawFlag="true"
+         />
+
+</RelativeLayout>
