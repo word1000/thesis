@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         applicationId "com.example.xiazhituo.ecase"
-        minSdkVersion 15
-        targetSdkVersion 19
+        minSdkVersion 21
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
     }
