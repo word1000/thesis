@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     //CircularProgressButton getWeightBut;
     CircleProgressView mUnlockCircleView;
     CircleProgressView mWeightCircleView;
+    FloatingActionButton mBleFab;
 
     /* For Bluetooth */
     public BluetoothDevice mDevice;
@@ -105,8 +107,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton ble_fab = (FloatingActionButton) findViewById(R.id.ble_fab);
-        ble_fab.setOnClickListener(new View.OnClickListener() {
+        mBleFab = (FloatingActionButton) findViewById(R.id.ble_fab);
+        mBleFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 scanLeDevice(true);
@@ -157,20 +159,6 @@ public class MainActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
-        /* For Ble service */
-        /*
-        Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
-
-        boolean bll =  MainActivity.this.getApplicationContext().bindService(gattServiceIntent,
-                mServiceConnection, BIND_AUTO_CREATE);
-
-        if (bll) {
-            System.out.println("---------------");
-        } else {
-            System.out.println("===============");
-        }
-        */
-
         registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
     }
 
@@ -191,6 +179,23 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+
+        if (id == R.id.action_getbattery) {
+            sendBleGetBattery();
+            return true;
+        }
+
+        if (id ==  R.id.action_regfinger) {
+            sendBleRegFingerPrint();
+        }
+
+        if (id ==  R.id.action_delfinger) {
+            sendBleDelFingerPrint();
+        }
+
+        if (id ==  R.id.action_setphonenum) {
+            sendBleSetPhoneNum();
         }
 
         return super.onOptionsItemSelected(item);
@@ -244,11 +249,10 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "run:devName " + devName);
 
                     if (devName != null) {
-
                         if ((devName.contains("Luggage"))) {
                             mDevice = scanResult.getDevice();
                             mDeviceAddress = scanResult.getDevice().getAddress();
-                            Toast.makeText(getBaseContext(), devName, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getBaseContext(), devName, Toast.LENGTH_SHORT).show();
 
                             Intent gattServiceIntent = new Intent(getBaseContext(), BluetoothLeService.class);
 
@@ -300,14 +304,9 @@ public class MainActivity extends AppCompatActivity {
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
                 mConnected = true;
-                //updateConnectionState(R.string.connected);
-                //invalidateOptionsMenu();
-                //displayGattServices(mBluetoothLeService.getSupportedGattServices());
+                Toast.makeText(getBaseContext(), "E-CASE connectted"+ mDeviceName, Toast.LENGTH_SHORT).show();
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 mConnected = false;
-                //updateConnectionState(R.string.disconnected);
-                //invalidateOptionsMenu();
-                //clearUI();
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
@@ -317,6 +316,7 @@ public class MainActivity extends AppCompatActivity {
 
                 sb.append(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
                 Log.d(TAG, "Gooooot Data: "+sb.toString());
+                Toast.makeText(getBaseContext(), sb.toString(), Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -456,17 +456,46 @@ public class MainActivity extends AppCompatActivity {
         unbindService(mServiceConnection);
         mBluetoothLeService = null;
     }
-	
+
+    public void sendCmd(String strcmd){
+        byte[] byteCmd = strcmd.getBytes(Charset.forName("US-ASCII"));
+        if (mConnected) {
+            if (mWriteCharacteristic != null) {
+                mBluetoothLeService.writeCharacteristic(mWriteCharacteristic, byteCmd);
+                System.out.println("Ble send cmd success: " + strcmd );
+            } else {
+                System.out.println("Ble send cmd failed: " + strcmd );
+            }
+        }
+    }
+
 	public void sendBleUnlock()
 	{
 		String unlockCmd = "AT+LOCKOFF\r";
-		byte[] byteCmd = unlockCmd.getBytes(Charset.forName("US-ASCII"));
-        System.out.println("Write Data Lenght: " + byteCmd.length);
-        if (mWriteCharacteristic != null){
-            mBluetoothLeService.writeCharacteristic(mWriteCharacteristic, byteCmd);
-        } else {
-            System.out.println("Write Unlock failed ");
-        }
-
+		sendCmd(unlockCmd);
 	}
+
+    public void sendBleGetBattery()
+    {
+        String getBatteryCmd = "AT+GTBAT\r";
+        sendCmd(getBatteryCmd);
+    }
+
+    public void sendBleRegFingerPrint()
+    {
+        String getBatteryCmd = "AT+FINGERREG\r";
+        sendCmd(getBatteryCmd);
+    }
+
+    public void sendBleDelFingerPrint()
+    {
+        String getBatteryCmd = "AT+FINGERDEL\r";
+        sendCmd(getBatteryCmd);
+    }
+
+    public void sendBleSetPhoneNum()
+    {
+        String getBatteryCmd = "AT+STSIM=1234\r";
+        sendCmd(getBatteryCmd);
+    }
 }

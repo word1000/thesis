@@ -6,4 +6,24 @@
         android:title="@string/action_settings"
         android:orderInCategory="100"
         app:showAsAction="never" />
+
+    <item android:id="@+id/action_regfinger"
+        android:title="@string/regfinger"
+        android:orderInCategory="101"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/action_delfinger"
+        android:title="@string/delfinger"
+        android:orderInCategory="102"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/action_getbattery"
+        android:title="@string/getbattery"
+        android:orderInCategory="103"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/action_setphonenum"
+        android:title="@string/setphonenum"
+        android:orderInCategory="103"
+        app:showAsAction="never" />
 </menu>

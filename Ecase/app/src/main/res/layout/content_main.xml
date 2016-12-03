@@ -15,20 +15,6 @@
     tools:showIn="@layout/activity_main"
     tools:context="com.example.xiazhituo.ecase.MainActivity">
 
-
-    <!--com.dd.CircularProgressButton
-        android:id="@+id/unlockBtn"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/cpb_white"
-        android:textSize="18sp"
-        android:layout_centerHorizontal="true"
-        app:cpb_cornerRadius="100dp"
-        app:cpb_iconComplete="@android:drawable/ic_lock_idle_lock"
-        app:cpb_iconError="@mipmap/ic_action_cancel"
-        app:cpb_textIdle="@string/Unlock" /-->
-
     <com.example.xiazhituo.ecase.CircleProgressView
         android:id="@+id/unlockBtn"
         android:layout_centerHorizontal="true"
