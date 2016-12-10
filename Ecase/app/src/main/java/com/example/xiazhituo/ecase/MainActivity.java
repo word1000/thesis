@@ -453,8 +453,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbindService(mServiceConnection);
-        mBluetoothLeService = null;
+        //unbindService(mServiceConnection);
+        //mBluetoothLeService = null;
     }
 
     public void sendCmd(String strcmd){

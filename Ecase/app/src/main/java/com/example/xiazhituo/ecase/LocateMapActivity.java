@@ -38,13 +38,15 @@ public class LocateMapActivity extends AppCompatActivity {
         }
 
         // 设置当前地图显示为当前位置
-        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(31.22, 121.48), 19));
+        LatLng latLng = new LatLng(31.22, 121.48);
+        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 19));
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(new LatLng(31.22, 121.48));
         markerOptions.title("当前位置");
         markerOptions.visible(true);
-        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.places_ic_clear));
-        markerOptions.icon(bitmapDescriptor);
+        //BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.places_ic_clear));
+        //markerOptions.icon(bitmapDescriptor);
+        markerOptions.snippet("DefaultMarker");
         aMap.addMarker(markerOptions);
     }
     @Override
