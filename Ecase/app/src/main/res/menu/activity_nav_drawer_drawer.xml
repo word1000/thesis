@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_footprint"
+            android:icon="@android:drawable/ic_dialog_map"
+            android:title="Footprint" />
+        <item
+            android:id="@+id/nav_fingerprint"
+            android:icon="@mipmap/ic_fingerprint"
+            android:title="Fingerprint" />
+        <item
+            android:id="@+id/nav_add_device"
+            android:icon="@android:drawable/ic_input_add"
+            android:title="Add Device" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Settings" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
+
+</menu>

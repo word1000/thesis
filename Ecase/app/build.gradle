@@ -22,15 +22,15 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+    compile files('libs/3DMapV3_189(2).jar')
+    compile files('libs/AMap_2DMap_V2.9.0_20160525.jar')
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.android.support:design:24.0.0'
     compile 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3'
-    compile 'com.google.android.gms:play-services:9.0.0'
-    compile 'com.google.android.gms:play-services-ads:9.0.0'
-    compile 'com.google.android.gms:play-services-auth:9.0.0'
-    compile 'com.google.android.gms:play-services-gcm:9.0.0'
-    compile files('libs/3DMapV3_189(2).jar')
-    compile files('libs/AMap_2DMap_V2.9.0_20160525.jar')
+    compile 'com.google.android.gms:play-services:10.0.0'
+    compile 'com.google.android.gms:play-services-ads:10.0.0'
+    compile 'com.google.android.gms:play-services-auth:10.0.0'
+    compile 'com.google.android.gms:play-services-gcm:10.0.0'
+    testCompile 'junit:junit:4.12'
 }

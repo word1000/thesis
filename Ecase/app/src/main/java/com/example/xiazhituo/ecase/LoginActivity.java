@@ -77,9 +77,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    public EcaseApplication mEapp = null;//(EcaseApplication)getApplication();
-    public SharedPreferences mUserSetting = null;//getSharedPreferences("user",  Context.MODE_PRIVATE);
-    public SharedPreferences.Editor editor = null;//mUserSetting.edit();
+    public EcaseApplication mEapp = null;
+    public SharedPreferences mUserSetting = null;
+    public SharedPreferences.Editor editor = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +117,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mContinueForTestButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, NavDrawerActivity.class);
                 startActivity(intent);
             }
         });
@@ -127,6 +128,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         if (mUserSetting.getBoolean("isSignedIn", false))
         {
+            System.out.println(mUserSetting.getString("userId", "null"));
             mEapp.setUserId(mUserSetting.getString("userId", "null"));
             mEapp.setDeviceId(mUserSetting.getString("deviceId", "null"));
             mEapp.setName(mUserSetting.getString("name", "null"));
@@ -396,7 +398,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                     editor.putString("deviceId", jsonObj.getString("deviceId"));
                     editor.putString("email", jsonObj.getString("email"));
-                    editor.putString("id", jsonObj.getString("id"));
+                    editor.putString("userId", jsonObj.getString("id"));
                     editor.putString("deviceSim", jsonObj.getString("deviceSim"));
                     editor.putString("name", jsonObj.getString("name"));
                     editor.putBoolean("isSignedIn", false);

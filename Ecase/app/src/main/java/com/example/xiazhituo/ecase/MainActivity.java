@@ -27,6 +27,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -48,6 +50,7 @@ import android.bluetooth.le.ScanCallback;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     //CircularProgressButton getWeightBut;
@@ -102,8 +105,13 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, LocateMapActivity.class);
-                startActivity(intent);
+                //if (isCN(getBaseContext())) {
+                    Intent intent = new Intent(MainActivity.this, LocateMapActivity.class);
+                    startActivity(intent);
+                //} else {
+                //    Intent intent = new Intent(MainActivity.this, GoogleActivity.class);
+                //    startActivity(intent);
+                //}
             }
         });
 
@@ -132,6 +140,8 @@ public class MainActivity extends AppCompatActivity {
                 String weightHint = progress + " Kg";
                 mWeightCircleView.setmTxtHint1(weightHint);
                 mWeightCircleView.setProgress(progress);
+
+                sendBleGetWeight();
             }
         });
 
@@ -497,5 +507,25 @@ public class MainActivity extends AppCompatActivity {
     {
         String getBatteryCmd = "AT+STSIM=1234\r";
         sendCmd(getBatteryCmd);
+    }
+
+    public void sendBleGetWeight()
+    {
+        String getBatteryCmd = "AT+GTWT\r";
+        sendCmd(getBatteryCmd);
+    }
+
+    public static boolean isCN(Context context) {
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String countryIso = tm.getSimCountryIso();
+        boolean isCN = false;//判断是不是大陆
+        if (!TextUtils.isEmpty(countryIso)) {
+            countryIso = countryIso.toUpperCase(Locale.US);
+            if (countryIso.contains("CN")) {
+                isCN = true;
+            }
+        }
+        return isCN;
+
     }
 }
