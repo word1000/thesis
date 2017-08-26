@@ -106,11 +106,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //if (isCN(getBaseContext())) {
-                    Intent intent = new Intent(MainActivity.this, LocateMapActivity.class);
-                    startActivity(intent);
+                    //Intent intent = new Intent(MainActivity.this, LocateMapActivity.class);
+                    //startActivity(intent);
                 //} else {
-                //    Intent intent = new Intent(MainActivity.this, GoogleActivity.class);
-                //    startActivity(intent);
+                    Intent intent = new Intent(MainActivity.this, GoogleActivity.class);
+                    startActivity(intent);
                 //}
             }
         });

@@ -1,5 +1,6 @@
 package com.example.xiazhituo.ecase;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -37,6 +38,7 @@ public class NavDrawerActivity extends AppCompatActivity
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    public FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class NavDrawerActivity extends AppCompatActivity
 
         mSectionsPagerAdapter = new MainSectionsPagerAdapter(getSupportFragmentManager());
 
+
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -54,11 +57,11 @@ public class NavDrawerActivity extends AppCompatActivity
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        tabLayout.getTabAt(0).setIcon(R.mipmap.ic_fingerprint);
-        tabLayout.getTabAt(1).setIcon(R.mipmap.ic_fingerprint);
-        tabLayout.getTabAt(2).setIcon(R.mipmap.ic_fingerprint);
+        tabLayout.getTabAt(0).setIcon(R.mipmap.ic_lock_open_white);
+        //tabLayout.getTabAt(1).setIcon(android.R.drawable.ic_dialog_map);
+        tabLayout.getTabAt(1).setIcon(R.mipmap.ic_subtitles_white);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,6 +120,9 @@ public class NavDrawerActivity extends AppCompatActivity
 
         if (id == R.id.nav_footprint) {
             // Handle the camera action
+
+            Intent intent = new Intent(NavDrawerActivity.this, LocateMapActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_fingerprint) {
 
         } else if (id == R.id.nav_add_device) {
@@ -183,13 +189,21 @@ public class NavDrawerActivity extends AppCompatActivity
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            if (position == 0) {
+                UnlockViewFragment unlock_fragment = new UnlockViewFragment();
+                return unlock_fragment;
+            } else if (position == 1) {
+                WeightViewFragment weight_fragment = new WeightViewFragment();
+                return weight_fragment;
+            } else {
+                return PlaceholderFragment.newInstance(position + 1);
+            }
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
@@ -198,8 +212,6 @@ public class NavDrawerActivity extends AppCompatActivity
                 case 0:
                     return "LOCK";
                 case 1:
-                    return "GPS";
-                case 2:
                     return "WEIGHT";
             }
             return null;
